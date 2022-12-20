@@ -8,16 +8,17 @@ fail() {
 PROJECT_ID=$project_id
 PROJECT_NUMBER=$(gcloud projects describe ${PROJECT_ID} --format="value(project_number)")
 GCF_SERVICE_ACCOUNT_NAME="resource-labeler-sa"
+GCF_SERVICE_ACCOUNT="${GCF_SERVICE_ACCOUNT_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
 TOPIC_NAME="asset-changes"
 ASSET_TYPES="compute.googleapis.com/Instance,container.googleapis.com/Cluster,sqladmin.googleapis.com/Instance,storage.googleapis.com/Bucket"
 
 gcloud iam service-accounts create "${GCF_SERVICE_ACCOUNT_NAME}" --project ${PROJECT_ID}
-GCF_SERVICE_ACCOUNT="${GCF_SERVICE_ACCOUNT_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
 
 PERMISSIONS="compute.instances.get,compute.instances.setLabels,container.clusters.get,container.clusters.update,storage.buckets.get,storage.buckets.update,cloudsql.instances.get,cloudsql.instances.update"
 gcloud iam roles create ResourceLabelerRole --organization=${ORGANIZATION_ID} --title "Resource Labeler Role" --permissions "${PERMISSIONS}" --stage GA
 
-
+MEMBER="user:$(gcloud config get-value account)"
+gcloud organizations add-iam-policy-binding ${ORGANIZATION_ID} --member="${MEMBER}" --role="roles/cloudasset.owner"
 gcloud organizations add-iam-policy-binding ${ORGANIZATION_ID} --member="serviceAccount:${GCF_SERVICE_ACCOUNT}" --role="organizations/${ORGANIZATION_ID}/roles/ResourceLabelerRole"
 
 gcloud services enable cloudasset.googleapis.com pubsub.googleapis.com cloudfunctions.googleapis.com cloudbuild.googleapis.com --project ${PROJECT_ID}
