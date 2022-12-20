@@ -14,8 +14,6 @@ ASSET_TYPES="compute.googleapis.com/Instance,container.googleapis.com/Cluster,sq
 gcloud iam service-accounts create "${GCF_SERVICE_ACCOUNT_NAME}" --project ${PROJECT_ID}
 GCF_SERVICE_ACCOUNT="${GCF_SERVICE_ACCOUNT_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
 
-
-gcloud organizations add-iam-policy-binding ${ORGANIZATION_ID} --member="user:$(gcloud config get-value account)" --role="roles/iam.organizationRoleAdmin"
 PERMISSIONS="compute.instances.get,compute.instances.setLabels,container.clusters.get,container.clusters.update,storage.buckets.get,storage.buckets.update,cloudsql.instances.get,cloudsql.instances.update"
 gcloud iam roles create ResourceLabelerRole --organization=${ORGANIZATION_ID} --title "Resource Labeler Role" --permissions "${PERMISSIONS}" --stage GA
 
