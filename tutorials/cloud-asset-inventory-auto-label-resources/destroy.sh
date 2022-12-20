@@ -29,7 +29,7 @@ else
 fi
 
 # delete service account
-if [[ $(gcloud iam service-accounts list --filter "${GCF_SERVICE_ACCOUNT_NAME}" --format json | jq '.[]|has("name")') ]]; then
+if [[ $(gcloud iam service-accounts list --project ${PROJECT_ID} --filter "${GCF_SERVICE_ACCOUNT_NAME}" --format json | jq '.[]|has("name")') ]]; then
     gcloud iam service-accounts delete ${GCF_SERVICE_ACCOUNT} --project ${project_id} --quiet
 else
     echo "sa not existed";
