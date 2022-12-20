@@ -26,7 +26,7 @@ gcloud services enable compute.googleapis.com container.googleapis.com storage.g
 
 gcloud pubsub topics create "${TOPIC_NAME}" --project ${PROJECT_ID}
 gcloud beta services identity create --service=cloudasset.googleapis.com --project=${PROJECT_ID}
-gcloud pubsub topics add-iam-policy-binding "${TOPIC_NAME}" --member "serviceAccount:service-${PROJECT_NUMBER}@gcp-sa-cloudasset.iam.gserviceaccount.com" /
+gcloud pubsub topics add-iam-policy-binding "${TOPIC_NAME}" --member "serviceAccount:service-${PROJECT_NUMBER}@gcp-sa-cloudasset.iam.gserviceaccount.com" \
     --role roles/pubsub.publisher --project ${PROJECT_ID}
 
 gcloud asset feeds create "feed-resources-${ORGANIZATION_ID}" --organization="${ORGANIZATION_ID}" \
