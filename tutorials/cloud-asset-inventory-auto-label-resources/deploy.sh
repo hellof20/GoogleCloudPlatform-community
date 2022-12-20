@@ -11,8 +11,8 @@ GCF_SERVICE_ACCOUNT_NAME="resource-labeler-sa"
 TOPIC_NAME="asset-changes"
 ASSET_TYPES="compute.googleapis.com/Instance,container.googleapis.com/Cluster,sqladmin.googleapis.com/Instance,storage.googleapis.com/Bucket"
 
-gcloud iam service-accounts create "${GCF_SERVICE_ACCOUNT_NAME}" --project ${SERVICE_ACCOUNT_PROJECT_ID}
-GCF_SERVICE_ACCOUNT="${GCF_SERVICE_ACCOUNT_NAME}@${SERVICE_ACCOUNT_PROJECT_ID}.iam.gserviceaccount.com"
+gcloud iam service-accounts create "${GCF_SERVICE_ACCOUNT_NAME}" --project ${PROJECT_ID}
+GCF_SERVICE_ACCOUNT="${GCF_SERVICE_ACCOUNT_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
 
 
 gcloud organizations add-iam-policy-binding ${ORGANIZATION_ID} --member="user:$(gcloud config get-value account)" --role="roles/iam.organizationRoleAdmin"
