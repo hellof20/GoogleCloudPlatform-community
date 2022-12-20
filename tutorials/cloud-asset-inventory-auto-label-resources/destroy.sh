@@ -7,7 +7,7 @@ fail() {
 
 TOPIC_NAME="asset-changes"
 GCF_SERVICE_ACCOUNT_NAME="resource-labeler-sa"
-GCF_SERVICE_ACCOUNT="${GCF_SERVICE_ACCOUNT_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
+GCF_SERVICE_ACCOUNT="${GCF_SERVICE_ACCOUNT_NAME}@${project_id}.iam.gserviceaccount.com"
 
 gcloud asset feeds delete feed-resources-${ORGANIZATION_ID} --organization ${ORGANIZATION_ID} --quiet
 gcloud functions delete auto_resource_labeler --project ${project_id} --quiet
