@@ -13,3 +13,4 @@ gcloud asset feeds delete feed-resources-${ORGANIZATION_ID} --organization ${ORG
 gcloud functions delete auto_resource_labeler --project ${project_id} --quiet
 gcloud pubsub topics delete ${TOPIC_NAME} --project ${project_id} --quiet
 gcloud iam service-accounts delete ${GCF_SERVICE_ACCOUNT} --project ${project_id} --quiet
+gcloud iam roles delete ResourceLabelerRole --organization=${ORGANIZATION_ID} --quiet
