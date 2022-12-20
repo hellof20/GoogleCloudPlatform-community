@@ -2,8 +2,6 @@
 
 set -e
 
-project_id=speedy-victory-336109
-ORGANIZATION_ID=235918811881
 PROJECT_ID=$project_id
 PROJECT_NUMBER=$(gcloud projects describe ${PROJECT_ID} --format="value(project_number)")
 GCF_SERVICE_ACCOUNT_NAME="resource-labeler-sa"
