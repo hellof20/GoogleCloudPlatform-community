@@ -29,12 +29,12 @@ gcloud beta services identity create --service=cloudasset.googleapis.com --proje
 gcloud pubsub topics add-iam-policy-binding "${TOPIC_NAME}" --member "serviceAccount:service-${PROJECT_NUMBER}@gcp-sa-cloudasset.iam.gserviceaccount.com" /
     --role roles/pubsub.publisher --project ${PROJECT_ID}
 
-gcloud asset feeds create "feed-resources-${ORGANIZATION_ID}" --organization="${ORGANIZATION_ID}" /
-    --content-type=resource --asset-types="${ASSET_TYPES}" /
-    --pubsub-topic="projects/${PROJECT_ID}/topics/${TOPIC_NAME}" /
+gcloud asset feeds create "feed-resources-${ORGANIZATION_ID}" --organization="${ORGANIZATION_ID}" \
+    --content-type=resource --asset-types="${ASSET_TYPES}" \
+    --pubsub-topic="projects/${PROJECT_ID}/topics/${TOPIC_NAME}" \
     --billing-project ${PROJECT_ID}
 
-gcloud functions deploy auto_resource_labeler --runtime python38 /
-    --trigger-topic "${TOPIC_NAME}" /
-    --service-account="${GCF_SERVICE_ACCOUNT}" /
+gcloud functions deploy auto_resource_labeler --runtime python38 \
+    --trigger-topic "${TOPIC_NAME}" \
+    --service-account="${GCF_SERVICE_ACCOUNT}" \
     --project ${PROJECT_ID}
