@@ -34,6 +34,7 @@ gcloud asset feeds create "feed-resources-${ORGANIZATION_ID}" --organization="${
     --pubsub-topic="projects/${PROJECT_ID}/topics/${TOPIC_NAME}" \
     --billing-project ${PROJECT_ID}
 
+cd cloud-function-auto-resource-labeler
 gcloud functions deploy auto_resource_labeler --runtime python38 \
     --trigger-topic "${TOPIC_NAME}" \
     --service-account="${GCF_SERVICE_ACCOUNT}" \
