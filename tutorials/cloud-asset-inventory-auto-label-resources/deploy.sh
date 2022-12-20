@@ -5,6 +5,7 @@ fail() {
     exit 1
 }
 
+PROJECT_ID=$project_id
 PROJECT_NUMBER=$(gcloud projects describe ${PROJECT_ID} --format="value(project_number)")
 GCF_SERVICE_ACCOUNT_NAME="resource-labeler-sa"
 TOPIC_NAME="asset-changes"
