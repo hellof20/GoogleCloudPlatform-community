@@ -38,3 +38,5 @@ gcloud functions deploy auto_resource_labeler --runtime python38 \
     --trigger-topic "${TOPIC_NAME}" \
     --service-account="${GCF_SERVICE_ACCOUNT}" \
     --project ${PROJECT_ID}
+    
+echo "Deploy finished."    
