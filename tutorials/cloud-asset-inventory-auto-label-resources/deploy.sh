@@ -11,7 +11,7 @@ ASSET_TYPES="compute.googleapis.com/Instance,container.googleapis.com/Cluster,sq
 PERMISSIONS="compute.instances.get,compute.instances.setLabels,container.clusters.get,container.clusters.update,storage.buckets.get,storage.buckets.update,cloudsql.instances.get,cloudsql.instances.update"
 
 # create service account for cloud function
-if [[ $(gcloud iam service-accounts list --filter "${GCF_SERVICE_ACCOUNT_NAME}" --format json | jq '.[]|has("name")') ]]; then
+if [[ $(gcloud iam service-accounts list --project ${PROJECT_ID} --filter "${GCF_SERVICE_ACCOUNT_NAME}" --format json | jq '.[]|has("name")') ]]; then
     echo "sa existed";
 else
     gcloud iam service-accounts create "${GCF_SERVICE_ACCOUNT_NAME}" --project ${PROJECT_ID}
