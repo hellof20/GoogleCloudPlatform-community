@@ -8,11 +8,10 @@ GCF_SERVICE_ACCOUNT_NAME="resource-labeler-sa"
 GCF_SERVICE_ACCOUNT="${GCF_SERVICE_ACCOUNT_NAME}@${project_id}.iam.gserviceaccount.com"
 
 #delete feed
-gcloud asset feeds list --organization ${ORGANIZATION_ID} --format="flattened(feeds[].name)" --billing-project ${PROJECT_ID} | grep -q "feed-resources-${ORGANIZATION_ID}"
-if [ $? -ne 0 ] ;then
-    echo "feed feed-resources-${ORGANIZATION_ID} not existed"
-else
+if gcloud asset feeds list --organization ${ORGANIZATION_ID} --format="flattened(feeds[].name)" --billing-project ${PROJECT_ID} | grep -q "feed-resources-${ORGANIZATION_ID}";then
     gcloud asset feeds delete feed-resources-${ORGANIZATION_ID} --organization ${ORGANIZATION_ID} --quiet
+else
+    echo "feed feed-resources-${ORGANIZATION_ID} not existed"
 fi
 
 # delete function
