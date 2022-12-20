@@ -43,14 +43,13 @@ gcloud beta services identity create --service=cloudasset.googleapis.com --proje
 gcloud pubsub topics add-iam-policy-binding "${TOPIC_NAME}" --member "serviceAccount:service-${PROJECT_NUMBER}@gcp-sa-cloudasset.iam.gserviceaccount.com" \
      --role roles/pubsub.publisher --project ${PROJECT_ID}
 
-gcloud asset feeds list --organization ${ORGANIZATION_ID} --format="flattened(feeds[].name)" --billing-project ${PROJECT_ID} | grep -q "feed-resources-${ORGANIZATION_ID}"
-if [ $? -ne 0 ] ;then
+if gcloud asset feeds list --organization ${ORGANIZATION_ID} --format="flattened(feeds[].name)" --billing-project ${PROJECT_ID} | grep -q "feed-resources-${ORGANIZATION_ID}";then
+    echo "feed existed"
+else
     gcloud asset feeds create "feed-resources-${ORGANIZATION_ID}" --organization="${ORGANIZATION_ID}" \
     --content-type=resource --asset-types="${ASSET_TYPES}" \
     --pubsub-topic="projects/${PROJECT_ID}/topics/${TOPIC_NAME}" \
     --billing-project ${PROJECT_ID}
-else
-    echo "feed existed"
 fi
 
 cd cloud-function-auto-resource-labeler
