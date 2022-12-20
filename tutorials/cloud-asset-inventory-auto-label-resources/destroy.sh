@@ -2,6 +2,7 @@
 
 set -e
 
+PROJECT_ID=$project_id
 TOPIC_NAME="asset-changes"
 GCF_SERVICE_ACCOUNT_NAME="resource-labeler-sa"
 GCF_SERVICE_ACCOUNT="${GCF_SERVICE_ACCOUNT_NAME}@${project_id}.iam.gserviceaccount.com"
