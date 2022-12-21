@@ -21,12 +21,13 @@ fi
 if [[ $(gcloud iam roles list --organization=${ORGANIZATION_ID} --filter ResourceLabelerRole --format json | jq '.[]|has("name")') ]]; then
     echo "iam role existed";
 else
-    gcloud iam roles create ResourceLabelerRole --organization=${ORGANIZATION_ID} --title "Resource Labeler Role" --permissions "${PERMISSIONS}" --stage GA
-    # iam policy binding
-    gcloud organizations add-iam-policy-binding ${ORGANIZATION_ID} \
-        --member="serviceAccount:${GCF_SERVICE_ACCOUNT}" \
-        --role="organizations/${ORGANIZATION_ID}/roles/ResourceLabelerRole"    
+    gcloud iam roles create ResourceLabelerRole --organization=${ORGANIZATION_ID} --title "Resource Labeler Role" --permissions "${PERMISSIONS}" --stage GA    
 fi
+
+# iam policy binding
+gcloud organizations add-iam-policy-binding ${ORGANIZATION_ID} \
+    --member="serviceAccount:${GCF_SERVICE_ACCOUNT}" \
+    --role="organizations/${ORGANIZATION_ID}/roles/ResourceLabelerRole"
 
 # enable services
 gcloud services enable cloudasset.googleapis.com pubsub.googleapis.com cloudfunctions.googleapis.com cloudbuild.googleapis.com --project ${PROJECT_ID}
